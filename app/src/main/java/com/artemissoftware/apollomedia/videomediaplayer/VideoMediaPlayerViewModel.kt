@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import com.artemissoftware.apollomedia.videomediaplayer.data.datareader.MetaDataReader
 import com.artemissoftware.apollomedia.videomediaplayer.data.models.VideoItem
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.stateIn
 class VideoMediaPlayerViewModel constructor(
     private val savedStateHandle: SavedStateHandle,
     val player: Player,
+    private val metaDataReader: MetaDataReader,
 ) : ViewModel() {
 
     private val videoUris = savedStateHandle.getStateFlow(VIDEO_URIS, emptyList<Uri>())
@@ -23,7 +25,7 @@ class VideoMediaPlayerViewModel constructor(
             VideoItem(
                 contentUri = uri,
                 mediaItem = MediaItem.fromUri(uri),
-                name = /*metaDataReader.getMetaDataFromUri(uri)?.fileName ?:*/ "No name",
+                name = metaDataReader.getMetaDataFromUri(uri)?.fileName ?: "No name",
             )
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
