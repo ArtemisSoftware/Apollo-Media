@@ -1,6 +1,6 @@
 [versions]
 agp = "8.1.1"
-org-jetbrains-kotlin-android = "1.8.10"
+org-jetbrains-kotlin-android = "1.8.20"
 core-ktx = "1.9.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
@@ -10,6 +10,11 @@ activity-compose = "1.8.0"
 compose-bom = "2023.03.00"
 
 media3-exoplayer ="1.2.0-alpha02"
+material-icons-extended = "1.6.0-alpha07"
+
+hilt = "2.48"
+hilt-navigation-compose = "1.1.0-beta01"
+com-google-devtools-ksp = "1.8.20-1.0.11"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -30,6 +35,8 @@ material3 = { group = "androidx.compose.material3", name = "material3" }
 
 #material3 = { group = "androidx.compose.material3", name = "material3" }
 
+# icons
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
 #implementation "androidx.compose.material:material-icons-extended:1.3.0-beta03"
 #implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 
@@ -37,16 +44,18 @@ material3 = { group = "androidx.compose.material3", name = "material3" }
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3-exoplayer" }
 media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3-exoplayer" }
 
-#
-#// Dagger - Hilt
-#implementation "com.google.dagger:hilt-android:2.42"
-#kapt "com.google.dagger:hilt-android-compiler:2.42"
-#kapt "androidx.hilt:hilt-compiler:1.0.0"
-#implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+# Dagger Hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose"  }
+
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 [bundles]
 

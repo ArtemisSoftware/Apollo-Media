@@ -8,11 +8,14 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import com.artemissoftware.apollomedia.videomediaplayer.data.datareader.MetaDataReader
 import com.artemissoftware.apollomedia.videomediaplayer.data.models.VideoItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class VideoMediaPlayerViewModel constructor(
+@HiltViewModel
+class VideoMediaPlayerViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     val player: Player,
     private val metaDataReader: MetaDataReader,
