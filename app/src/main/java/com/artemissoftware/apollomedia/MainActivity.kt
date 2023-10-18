@@ -1,21 +1,36 @@
 package com.artemissoftware.apollomedia
 
+import android.app.PendingIntent
+import android.app.PictureInPictureParams
+import android.app.RemoteAction
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.drawable.Icon
 import android.os.Bundle
+import android.util.Rational
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.artemissoftware.apollomedia.receivers.PipReceiver
 import com.artemissoftware.apollomedia.ui.theme.ApolloMediaTheme
 import com.artemissoftware.apollomedia.videomediaplayer.VideoMediaPlayerScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModels()
+
+    private val isPipSupported by lazy {
+        packageManager.hasSystemFeature(
+            PackageManager.FEATURE_PICTURE_IN_PICTURE,
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,25 +40,52 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    VideoMediaPlayerScreen()
+                    VideoMediaPlayerScreen(
+                        updateVideoViewBounds = { bounds ->
+                            mainViewModel.setVideoViewBounds(bounds)
+                        },
+                        updatePipMode = { inPipMode ->
+                            mainViewModel.setInPipMode(inPipMode)
+                        },
+                        isInPipMode = mainViewModel.isInPipMode.value,
+                    )
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier,
-    )
-}
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (!isPipSupported) {
+            return
+        }
+        mainViewModel.setInPipMode(true)
+        enterPictureInPictureMode(updatedPipParams())
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ApolloMediaTheme {
-        Greeting("Android")
+    private fun updatedPipParams(): PictureInPictureParams {
+        return PictureInPictureParams
+            .Builder()
+            .setSourceRectHint(mainViewModel.videoViewBounds)
+            .setAspectRatio(Rational(16, 9))
+            .setActions(
+                listOf(
+                    RemoteAction(
+                        Icon.createWithResource(
+                            applicationContext,
+                            R.drawable.ic_personal_video,
+                        ),
+                        "Trailer video",
+                        "Trailer video",
+                        PendingIntent.getBroadcast(
+                            applicationContext,
+                            0,
+                            Intent(applicationContext, PipReceiver::class.java),
+                            PendingIntent.FLAG_IMMUTABLE,
+                        ),
+                    ),
+                ),
+            )
+            .build()
     }
 }

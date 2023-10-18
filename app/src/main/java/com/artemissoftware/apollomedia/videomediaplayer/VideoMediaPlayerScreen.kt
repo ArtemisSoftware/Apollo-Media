@@ -1,5 +1,6 @@
 package com.artemissoftware.apollomedia.videomediaplayer
 
+import android.graphics.Rect
 import android.net.Uri
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,6 +29,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toAndroidRect
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -38,7 +42,12 @@ import androidx.media3.ui.PlayerView
 import com.artemissoftware.apollomedia.videomediaplayer.data.models.VideoItem
 
 @Composable
-fun VideoMediaPlayerScreen(viewModel: VideoMediaPlayerViewModel = hiltViewModel()) {
+fun VideoMediaPlayerScreen(
+    viewModel: VideoMediaPlayerViewModel = hiltViewModel(),
+    updateVideoViewBounds: (Rect) -> Unit,
+    updatePipMode: (Boolean) -> Unit,
+    isInPipMode: Boolean,
+) {
     val lifecycleOwner = LocalLifecycleOwner.current
     var lifecycle by remember { mutableStateOf(Lifecycle.Event.ON_CREATE) }
 
@@ -64,8 +73,7 @@ fun VideoMediaPlayerScreen(viewModel: VideoMediaPlayerViewModel = hiltViewModel(
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
     ) {
         AndroidView(
             factory = { context ->
@@ -77,17 +85,22 @@ fun VideoMediaPlayerScreen(viewModel: VideoMediaPlayerViewModel = hiltViewModel(
                 when (lifecycle) {
                     Lifecycle.Event.ON_PAUSE -> {
                         it.onPause()
-                        it.player?.pause()
+                        if (!isInPipMode) it.player?.pause()
                     }
                     Lifecycle.Event.ON_RESUME -> {
                         it.onResume()
+                        updatePipMode.invoke(false)
                     }
                     else -> Unit
                 }
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(16 / 9f),
+                .aspectRatio(16 / 9f)
+                .onGloballyPositioned {
+                    val boundsInWindow = it.boundsInWindow()
+                    updateVideoViewBounds.invoke(Rect(boundsInWindow.left.toInt(), boundsInWindow.top.toInt(), boundsInWindow.right.toInt(), boundsInWindow.bottom.toInt()))
+                },
         )
 
         Spacer(modifier = Modifier.height(8.dp))
