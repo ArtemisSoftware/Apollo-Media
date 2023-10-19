@@ -1,5 +1,6 @@
 package com.artemissoftware.apollomedia
 
+import android.Manifest
 import android.app.PendingIntent
 import android.app.PictureInPictureParams
 import android.app.RemoteAction
@@ -15,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
+import com.artemissoftware.apollomedia.audiorecorder.AudioRecorderScreen
 import com.artemissoftware.apollomedia.receivers.PipReceiver
 import com.artemissoftware.apollomedia.ui.theme.ApolloMediaTheme
 import com.artemissoftware.apollomedia.videomediaplayer.VideoMediaPlayerScreen
@@ -33,6 +36,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            0
+        )
         setContent {
             ApolloMediaTheme {
                 // A surface container using the 'background' color from the theme
@@ -40,15 +48,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    VideoMediaPlayerScreen(
-                        updateVideoViewBounds = { bounds ->
-                            mainViewModel.setVideoViewBounds(bounds)
-                        },
-                        updatePipMode = { inPipMode ->
-                            mainViewModel.setInPipMode(inPipMode)
-                        },
-                        isInPipMode = mainViewModel.isInPipMode.value,
-                    )
+                    AudioRecorderScreen()
+//                    VideoMediaPlayerScreen(
+//                        updateVideoViewBounds = { bounds ->
+//                            mainViewModel.setVideoViewBounds(bounds)
+//                        },
+//                        updatePipMode = { inPipMode ->
+//                            mainViewModel.setInPipMode(inPipMode)
+//                        },
+//                        isInPipMode = mainViewModel.isInPipMode.value,
+//                    )
                 }
             }
         }
