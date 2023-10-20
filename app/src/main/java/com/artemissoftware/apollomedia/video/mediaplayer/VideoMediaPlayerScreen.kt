@@ -1,4 +1,4 @@
-package com.artemissoftware.apollomedia.videomediaplayer
+package com.artemissoftware.apollomedia.video.mediaplayer
 
 import android.graphics.Rect
 import android.net.Uri
@@ -29,7 +29,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toAndroidRect
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -39,7 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.media3.ui.PlayerView
-import com.artemissoftware.apollomedia.videomediaplayer.data.models.VideoItem
+import com.artemissoftware.apollomedia.video.mediaplayer.data.models.VideoItem
 
 @Composable
 fun VideoMediaPlayerScreen(

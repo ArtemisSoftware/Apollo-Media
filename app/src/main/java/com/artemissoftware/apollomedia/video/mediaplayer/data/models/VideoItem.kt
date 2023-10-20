@@ -1,4 +1,4 @@
-package com.artemissoftware.apollomedia.videomediaplayer.data.models
+package com.artemissoftware.apollomedia.video.mediaplayer.data.models
 
 import android.net.Uri
 import androidx.media3.common.MediaItem

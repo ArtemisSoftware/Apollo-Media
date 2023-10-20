@@ -1,10 +1,10 @@
-package com.artemissoftware.apollomedia.videomediaplayer.data.datareader
+package com.artemissoftware.apollomedia.video.mediaplayer.data.datareader
 
 import android.app.Application
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.annotation.WorkerThread
-import com.artemissoftware.apollomedia.videomediaplayer.data.models.MetaData
+import com.artemissoftware.apollomedia.video.mediaplayer.data.models.MetaData
 
 class MetaDataReaderImpl(
     private val app: Application,

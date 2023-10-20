@@ -1,4 +1,4 @@
-package com.artemissoftware.apollomedia.videomediaplayer
+package com.artemissoftware.apollomedia.video.mediaplayer
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
-import com.artemissoftware.apollomedia.videomediaplayer.data.datareader.MetaDataReader
-import com.artemissoftware.apollomedia.videomediaplayer.data.models.VideoItem
+import com.artemissoftware.apollomedia.video.mediaplayer.data.datareader.MetaDataReader
+import com.artemissoftware.apollomedia.video.mediaplayer.data.models.VideoItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

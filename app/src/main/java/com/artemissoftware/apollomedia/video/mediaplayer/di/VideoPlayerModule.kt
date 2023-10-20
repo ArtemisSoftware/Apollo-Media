@@ -1,10 +1,10 @@
-package com.artemissoftware.apollomedia.videomediaplayer.di
+package com.artemissoftware.apollomedia.video.mediaplayer.di
 
 import android.app.Application
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import com.artemissoftware.apollomedia.videomediaplayer.data.datareader.MetaDataReader
-import com.artemissoftware.apollomedia.videomediaplayer.data.datareader.MetaDataReaderImpl
+import com.artemissoftware.apollomedia.video.mediaplayer.data.datareader.MetaDataReader
+import com.artemissoftware.apollomedia.video.mediaplayer.data.datareader.MetaDataReaderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
