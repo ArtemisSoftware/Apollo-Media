@@ -16,7 +16,7 @@ hilt = "2.48"
 hilt-navigation-compose = "1.1.0-beta01"
 com-google-devtools-ksp = "1.8.20-1.0.11"
 
-android-Image-Cropper = "4.0.0"
+android-Image-Cropper = "4.5.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -51,7 +51,7 @@ hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-comp
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose"  }
 
 # image cropper
-android-Image-Cropper = { group = "com.github.CanHub", name = "Android-Image-Cropper", version.ref = "android-Image-Cropper" }
+android-Image-Cropper = { group = "com.vanniktech", name = "android-image-cropper", version.ref = "android-Image-Cropper" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
