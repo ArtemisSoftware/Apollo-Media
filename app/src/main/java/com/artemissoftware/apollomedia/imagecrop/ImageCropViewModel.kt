@@ -3,9 +3,9 @@ package com.artemissoftware.apollomedia.imagecrop
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.canhub.cropper.CropImageView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,9 +15,18 @@ class ImageCropViewModel @Inject constructor(
 ) : ViewModel() {
 
     var bitmap = mutableStateOf<Bitmap?>(null)
+    var error = mutableStateOf<String>("")
+        private set
 
-    fun setImage(uri: Uri) {
-        val source = ImageDecoder.createSource(application.contentResolver, uri)
-        bitmap.value = ImageDecoder.decodeBitmap(source)
+    fun setImage(cropResult: CropImageView.CropResult) {
+
+        if (cropResult.isSuccessful) {
+            cropResult.uriContent?.let {
+                val source = ImageDecoder.createSource(application.contentResolver, it)
+                bitmap.value = ImageDecoder.decodeBitmap(source)
+            }
+        } else {
+            error.value = cropResult.error?.message.toString()
+        }
     }
 }

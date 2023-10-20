@@ -18,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import com.artemissoftware.apollomedia.audiorecorder.AudioRecorderScreen
+import com.artemissoftware.apollomedia.imagecrop.ImageCropScreen
 import com.artemissoftware.apollomedia.receivers.PipReceiver
 import com.artemissoftware.apollomedia.ui.theme.ApolloMediaTheme
 import com.artemissoftware.apollomedia.videomediaplayer.VideoMediaPlayerScreen
@@ -48,7 +49,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    AudioRecorderScreen()
+                    ImageCropScreen()
+                    //AudioRecorderScreen()
 //                    VideoMediaPlayerScreen(
 //                        updateVideoViewBounds = { bounds ->
 //                            mainViewModel.setVideoViewBounds(bounds)
