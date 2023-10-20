@@ -72,6 +72,8 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    implementation(libs.android.image.cropper)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
