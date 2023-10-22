@@ -46,6 +46,7 @@ fun VideoMediaPlayerScreen(
     updateVideoViewBounds: (Rect) -> Unit,
     updatePipMode: (Boolean) -> Unit,
     isInPipMode: Boolean,
+    allowPipMode: (Boolean) -> Unit,
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     var lifecycle by remember { mutableStateOf(Lifecycle.Event.ON_CREATE) }
@@ -55,6 +56,7 @@ fun VideoMediaPlayerScreen(
     val selectVideoLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
+            allowPipMode.invoke(true)
             uri?.let(viewModel::addVideoUri)
         },
     )
@@ -104,7 +106,12 @@ fun VideoMediaPlayerScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        VideoMediaPlayerContent(videoItems, viewModel, selectVideoLauncher)
+        VideoMediaPlayerContent(
+            videoItems,
+            viewModel,
+            selectVideoLauncher,
+            allowPipMode = allowPipMode,
+        )
     }
 }
 
@@ -113,6 +120,7 @@ fun ColumnScope.VideoMediaPlayerContent(
     videoItems: List<VideoItem>,
     viewModel: VideoMediaPlayerViewModel,
     selectVideoLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    allowPipMode: (Boolean) -> Unit,
 ) {
     IconButton(
         onClick = {
@@ -137,6 +145,7 @@ fun ColumnScope.VideoMediaPlayerContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
+                        allowPipMode.invoke(true)
                         viewModel.playVideo(item.contentUri)
                     }
                     .padding(16.dp),

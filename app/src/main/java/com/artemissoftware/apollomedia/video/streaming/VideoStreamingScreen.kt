@@ -28,8 +28,10 @@ import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 
 @Composable
-fun VideoStreamingScreen(viewModel: VideoStreamingViewModel = hiltViewModel()) {
-
+fun VideoStreamingScreen(
+    viewModel: VideoStreamingViewModel = hiltViewModel(),
+    allowPipMode: (Boolean) -> Unit,
+) {
     val configuration = LocalConfiguration.current
 
     val screenHeight = configuration.screenHeightDp.dp
@@ -43,11 +45,12 @@ fun VideoStreamingScreen(viewModel: VideoStreamingViewModel = hiltViewModel()) {
         items(viewModel.streamingData) { streamingData ->
             AsyncImage(
                 model = streamingData.poster,
-                //contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Crop,
                 contentDescription = "video thumbnail",
                 modifier = Modifier
-                    //--.size(width = screenHeight/ 2, 200.dp)
+                    .size(width = screenHeight / 2, 200.dp)
                     .clickable {
+                        allowPipMode.invoke(true)
                         viewModel.playVideo(streamingData)
                     },
             )
@@ -57,7 +60,10 @@ fun VideoStreamingScreen(viewModel: VideoStreamingViewModel = hiltViewModel()) {
     viewModel.currentStreaming.value?.let { stream ->
         VideoPlayer(
             player = viewModel.player,
-            stopVideo = viewModel::stopVideo,
+            stopVideo = {
+                allowPipMode.invoke(false)
+                viewModel.stopVideo()
+            },
         )
     }
 }

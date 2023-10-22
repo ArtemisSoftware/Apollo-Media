@@ -20,8 +20,6 @@ import androidx.core.app.ActivityCompat
 import com.artemissoftware.apollomedia.audiorecorder.AudioRecorderScreen
 import com.artemissoftware.apollomedia.receivers.PipReceiver
 import com.artemissoftware.apollomedia.ui.theme.ApolloMediaTheme
-import com.artemissoftware.apollomedia.video.mediaplayer.VideoMediaPlayerScreen
-import com.artemissoftware.apollomedia.video.streaming.VideoStreamingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,18 +47,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-//                    VideoStreamingScreen()
-                    // ImageCropScreen()
-                     AudioRecorderScreen()
-//                    VideoMediaPlayerScreen(
-//                        updateVideoViewBounds = { bounds ->
-//                            mainViewModel.setVideoViewBounds(bounds)
-//                        },
-//                        updatePipMode = { inPipMode ->
-//                            mainViewModel.setInPipMode(inPipMode)
-//                        },
-//                        isInPipMode = mainViewModel.isInPipMode.value,
-//                    )
+                    NavGraph(mainViewModel = mainViewModel)
                 }
             }
         }
@@ -71,8 +58,10 @@ class MainActivity : ComponentActivity() {
         if (!isPipSupported) {
             return
         }
-        mainViewModel.setInPipMode(true)
-        enterPictureInPictureMode(updatedPipParams())
+        if(mainViewModel.canGoToPipMode.value) {
+            mainViewModel.setInPipMode(true)
+            enterPictureInPictureMode(updatedPipParams())
+        }
     }
 
     private fun updatedPipParams(): PictureInPictureParams {

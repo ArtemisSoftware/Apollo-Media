@@ -11,8 +11,16 @@ class MainViewModel() : ViewModel() {
 
     var isInPipMode = mutableStateOf(false)
         private set
+
+    var canGoToPipMode = mutableStateOf(false)
+        private set
+
     fun setVideoViewBounds(bounds: Rect) {
         videoViewBounds = bounds
+    }
+
+    fun setAllowPipMode(pipModeAllowed: Boolean) {
+        canGoToPipMode.value = pipModeAllowed
     }
 
     fun setInPipMode(isInPipMode: Boolean) {
