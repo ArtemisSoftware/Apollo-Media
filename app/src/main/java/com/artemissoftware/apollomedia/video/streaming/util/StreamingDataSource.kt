@@ -45,6 +45,7 @@ object StreamingDataSource {
             poster = "https://joy1.videvo.net/videvo_files/video/free/2019-11/thumbnails/190301_1_25_11_small.jpg",
             source = "https://joy1.videvo.net/videvo_files/video/free/2019-11/large_watermarked/190301_1_25_11_preview.mp4",
         ),
+
         StreamItem(
             poster = "https://joy1.videvo.net/videvo_files/video/free/video0476/thumbnails/_import_621c57f606fce0.63604907_small.jpg",
             source = "https://joy1.videvo.net/videvo_files/video/free/video0476/large_watermarked/_import_621c57f606fce0.63604907_preview.mp4",
@@ -149,5 +150,6 @@ object StreamingDataSource {
             poster = "https://joy1.videvo.net/videvo_files/video/free/2020-03/thumbnails/200223_Cafe_01_13_small.jpg",
             source = "https://joy1.videvo.net/videvo_files/video/free/2020-03/large_watermarked/200223_Cafe_01_13_preview.mp4",
         ),
+
     )
 }

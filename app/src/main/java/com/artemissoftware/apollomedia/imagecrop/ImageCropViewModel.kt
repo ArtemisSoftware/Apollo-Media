@@ -19,7 +19,6 @@ class ImageCropViewModel @Inject constructor(
         private set
 
     fun setImage(cropResult: CropImageView.CropResult) {
-
         if (cropResult.isSuccessful) {
             cropResult.uriContent?.let {
                 val source = ImageDecoder.createSource(application.contentResolver, it)

@@ -74,6 +74,8 @@ dependencies {
 
     implementation(libs.android.image.cropper)
 
+    implementation(libs.coil)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
