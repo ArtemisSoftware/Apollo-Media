@@ -17,9 +17,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
-import com.artemissoftware.apollomedia.imagecrop.ImageCropScreen
+import com.artemissoftware.apollomedia.audiorecorder.AudioRecorderScreen
 import com.artemissoftware.apollomedia.receivers.PipReceiver
 import com.artemissoftware.apollomedia.ui.theme.ApolloMediaTheme
+import com.artemissoftware.apollomedia.video.mediaplayer.VideoMediaPlayerScreen
+import com.artemissoftware.apollomedia.video.streaming.VideoStreamingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.RECORD_AUDIO),
-            0
+            0,
         )
         setContent {
             ApolloMediaTheme {
@@ -47,8 +49,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    ImageCropScreen()
-                    //AudioRecorderScreen()
+//                    VideoStreamingScreen()
+                    // ImageCropScreen()
+                     AudioRecorderScreen()
 //                    VideoMediaPlayerScreen(
 //                        updateVideoViewBounds = { bounds ->
 //                            mainViewModel.setVideoViewBounds(bounds)
